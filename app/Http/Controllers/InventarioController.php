@@ -2,35 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Inventario;
 use Illuminate\Http\Request;
 
 class InventarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // public function __construct()
+    // {
+    //     $this->middleware(['role:sadmin','permission:inventario.index|inventario.create', 'only' => ['index','store']]);
+    // }
     public function index()
     {
-        $inventario = Inventario::all();
+        $user = auth()->user();
+        if ($user->hasPermissionTo('inventario.index'))
+        {
+            $inventario = Inventario::all();
 
-        return response()->json([
-            'inventario' => $inventario,
-            'status' => 'successful'
-        ]);
+            return response()->json([
+                'inventario' => $inventario,
+                'status' => 'successful'
+            ]);
+        }
+        else
+        {
+            return response()->json(['message' => 'Sin permisos'], 403);
+        }
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        if (auth()->user()->hasPermissionTo('inventario.create'))
+        {
+            return Helper::transactional(function () use ($request) {
+            
+                $inventario = Inventario::create($request->all());
+                return Helper::jsonResponse(data: ['inventario' => $inventario]);
+            });
+        }
+        else
+        {
+            return response()->json(['message' => 'Sin permisos'], 403);
+        }
     }
 
     /**

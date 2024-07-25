@@ -1,17 +1,22 @@
 <?php
 
 namespace App\Repository;
-use App\RolePermissionInterface;
+
+use App\Interface\PermissionInterface;
 use Spatie\Permission\Models\Permission;
 
-class PermissionRepository implements RolePermissionInterface
+class PermissionRepository implements PermissionInterface
 {
     /**
      * Create a new class instance.
      */
+    public function index()
+    {
+        return Permission::all();  
+    }
     public function store(array $data)
     {
-        return Permission::created($data);
+        return Permission::create($data);
     }
 
     public function update(array $data, $id)

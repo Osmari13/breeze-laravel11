@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Interface\PermissionInterface;
+use App\Interface\RoleInterface;
+use App\Repository\PermissionRepository;
+use App\Repository\RoleRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RolePermissionProvider extends ServiceProvider
@@ -11,7 +15,8 @@ class RolePermissionProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(RoleInterface::class, RoleRepository::class);
+        $this->app->bind(PermissionInterface::class, PermissionRepository::class);
     }
 
     /**

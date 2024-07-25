@@ -2,19 +2,21 @@
 
 namespace App\Repository;
 
-
-use App\RoleInterface;
-use App\RolePermissionInterface;
+use App\Interface\RoleInterface;
 use Spatie\Permission\Models\Role;
 
-class RoleRepository implements RolePermissionInterface
+class RoleRepository implements RoleInterface
 {
     /**
      * Create a new class instance.
      */
+    public function index()
+    {
+        return Role::all();  
+    }
     public function store(array $data)
     {
-        return Role::created($data);
+        return Role::create($data);
     }
 
     public function update(array $data, $id)

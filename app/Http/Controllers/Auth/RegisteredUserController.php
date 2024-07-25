@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
+        $user->assignRole($request->input('role'));
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([

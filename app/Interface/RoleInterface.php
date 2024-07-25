@@ -1,9 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Interface;
 
-interface RolePermissionInterface
+interface RoleInterface
 {
+    public function index();
     public function store(array $data);
     public function update(array $data, $id);
     public function destroy($id);

@@ -22,17 +22,14 @@ class RoleController extends Controller
     }
     public function store(Request $request)
     {
-        $data = [
-            "name" => $request->name,
-            "guard_name" => "web"
-        ];
-        return Helper::transactional(function () use ($data, $request) {
+    
+        return Helper::transactional(function () use ($request) {
             $permissionsID = array_map(
                 function($value) { return (int)$value; },
-                $request->input('permission',[])
+                $request->input('permissions',[])
             );
            
-            $role = Role::create(['name' => $request->input('name'), "guard_name" => "web"]);
+            $role = Role::create(['name' => $request->input('name'), "guard_name" => "api"]);
             $role->syncPermissions($permissionsID);
           
       

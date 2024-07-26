@@ -24,7 +24,7 @@ class PermissionController extends Controller
     {
         $data = [
             "name" => $request->name,
-            "guard_name" => "web"
+            "guard_name" => "api"
         ];
         return Helper::transactional(function () use ($data, $request) {
             $permission = $this->permissionInterface->store($data);

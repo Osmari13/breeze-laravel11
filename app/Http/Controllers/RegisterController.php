@@ -18,7 +18,7 @@ class RegisterController extends Controller
         
         //OPCION UNO DE EXTRAER DATOS
 
-        $users= User::with('roles:id,name')
+        $users= User::with('roles:id,name', 'permissions:id,name')
                     ->get()
                     ->makeHidden(['created_at', 'updated_at', 'email_verified_at']);
        
@@ -55,8 +55,9 @@ class RegisterController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-      
-            $user->assignRole($request->input('role'));
+            //dd($user);
+            $user->syncRoles($request->input('roles'));
+            $user->syncPermissions($request->input('permissions'));
             return Helper::jsonResponse(data: ['user' => RegisterResource::make($user)]);
         });
     }

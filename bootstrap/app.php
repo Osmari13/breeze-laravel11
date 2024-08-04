@@ -18,8 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             ThrottleRequests::class.':api',
             SubstituteBindings::class,
-
         ]);
+        $middleware->group('universal', []);
 
         $middleware->alias([
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,

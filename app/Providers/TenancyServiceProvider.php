@@ -92,10 +92,10 @@ final class TenancyServiceProvider extends ServiceProvider
         ];
     }
 
-    public function register()
-    {
-        //
-    }
+    // public function register()
+    // {
+    //     //
+    // }
 
     public function boot()
     {
@@ -121,9 +121,17 @@ final class TenancyServiceProvider extends ServiceProvider
     protected function mapRoutes()
     {
         $this->app->booted(function () {
-            if (file_exists(base_path('routes/tenants/routes.php'))) {
-                Route::namespace(static::$controllerNamespace)
-                    ->group(base_path('routes/tenants/routes.php'));
+            // Ruta base para las rutas de tenants
+            $tenantsRoutesPath = base_path('routes/tenants');
+
+            // Buscar y cargar rutas de todas las subcarpetas
+            foreach (glob($tenantsRoutesPath . '/*', GLOB_ONLYDIR) as $tenantDirectory) {
+                $routesFile = $tenantDirectory . '/routes.php';
+
+                if (file_exists($routesFile)) {
+                    Route::namespace(static::$controllerNamespace)
+                        ->group($routesFile);
+                }
             }
         });
     }

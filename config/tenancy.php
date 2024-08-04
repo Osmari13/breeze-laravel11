@@ -52,8 +52,8 @@ return [
          * Tenant database names are created like this:
          * prefix + tenant_id + suffix.
          */
-        'prefix' => 'tenant',
-        'suffix' => '',
+        'prefix' => '',
+        'suffix' => '_tenant',
 
         /**
          * TenantDatabaseManagers are classes that handle the creation & deletion of tenant databases.
@@ -166,7 +166,7 @@ return [
     'features' => [
         // Stancl\Tenancy\Features\UserImpersonation::class,
         // Stancl\Tenancy\Features\TelescopeTags::class,
-        // Stancl\Tenancy\Features\UniversalRoutes::class,
+        Stancl\Tenancy\Features\UniversalRoutes::class,
         // Stancl\Tenancy\Features\TenantConfig::class, // https://tenancyforlaravel.com/docs/v3/features/tenant-config
         // Stancl\Tenancy\Features\CrossDomainRedirect::class, // https://tenancyforlaravel.com/docs/v3/features/cross-domain-redirect
         // Stancl\Tenancy\Features\ViteBundler::class,
@@ -186,7 +186,8 @@ return [
      */
     'migration_parameters' => [
         '--force' => true, // This needs to be true to run migrations in production.
-        '--path' => [database_path('migrations/tenant')],
+        '--path' => [database_path('migrations/tenants'), database_path('migrations/tenants/bar'),
+        database_path('migrations/tenants/foo')],
         '--realpath' => true,
     ],
 

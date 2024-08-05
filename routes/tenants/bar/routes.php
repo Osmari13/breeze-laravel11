@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\EmployeeController;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -24,8 +26,11 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::get('/foo', function () {
-        dd('esto es foo');
+    
+    Route::get('/', function () {
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     })->middleware(['universal', InitializeTenancyByDomain::class]);
+
+    // Route::apiResource('/employee', EmployeeController::class)
+    //     ->middleware(['universal', InitializeTenancyByDomain::class]);
 });

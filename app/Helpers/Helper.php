@@ -16,13 +16,13 @@ class Helper{
         DB::beginTransaction();
         try {
             $result=$callback();
-            
             DB::commit();
             return $result;
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error($e->getMessage());
-            return self::jsonResponse(message: 'Ocurrio un error', status: 500);
+            Log::error('Transaction error: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            return self::jsonResponse(message: 'Ocurrio un error', status: 500, errors: $e->getMessage());
         }
     }
 

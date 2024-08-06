@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Sanctum\HasApiTokens;
 
 class Employee extends Model
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
+    protected $connection = 'foo_tenant';
     protected $fillable = [
         'name',
         'cargo',

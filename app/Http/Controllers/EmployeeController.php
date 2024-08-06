@@ -26,7 +26,7 @@ class EmployeeController extends Controller
                 // Cambiar el contexto al inquilino actual
                 // Aquí puedes usar el contexto de multi-tenancy si es necesario
             
-               
+               //validar que el nombre del empleado conincida con el usuario si es que tiene
                 $employee=Employee::create([
                     'name' => $request->name,
                     'cargo' => $request->cargo,

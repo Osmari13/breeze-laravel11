@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -122,8 +123,9 @@ final class TenancyServiceProvider extends ServiceProvider
     {
         $this->app->booted(function () {
             // Ruta base para las rutas de tenants
-            $tenantsRoutesPath = base_path('routes/tenants');
-
+            $tenant = tenant('id');
+            $tenantsRoutesPath = base_path("routes/{$tenant}");
+            //dd(Auth::user());
             // Buscar y cargar rutas de todas las subcarpetas
             foreach (glob($tenantsRoutesPath . '/*', GLOB_ONLYDIR) as $tenantDirectory) {
                 $routesFile = $tenantDirectory . '/routes.php';

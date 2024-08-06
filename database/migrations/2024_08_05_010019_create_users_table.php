@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('username')->unique();
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete();
+            $table->string('tenant_id')->nullable(); 
+            $table->foreign('tenant_id')->references('id')->on('tenants')->cascadeOnDelete();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('api_token', 80)->unique()->nullable();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -26,11 +27,13 @@ class RegisteredUserController extends Controller
         //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         //     'password' => ['required'],
         // ]);
-
+        $tenant = Tenant::select('id')->where('id', $request->company)->first();
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
+            'company_id' => $request->company,
+            'tenant_id' =>  $tenant,
             'password' => Hash::make($request->password),
         ]);
 

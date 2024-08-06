@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 foreach (config('tenancy.central_domains') as $domain) {
   Route::domain($domain)->group(function () {
-    Route::get('/', [RegisterController::class, 'index'])->name('user.index');
+    Route::get('/users', [RegisterController::class, 'index'])->name('user.index');
     Route::apiResource('/company', CompanyController::class);
    // Route::apiResource('/inventario', InventarioController::class)->only('index', 'store', 'update', 'destroy');
     Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');

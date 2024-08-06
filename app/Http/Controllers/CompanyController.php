@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StoreCreated;
 use App\Helpers\Helper;
 use App\Models\Company;
 use App\Models\Tenant;
@@ -23,6 +24,7 @@ class CompanyController extends Controller
             
         //     return Helper::jsonResponse(data: ['data' => ['tenant' => $tenant]]);
         // });
+        
         try {
           
             $tenant = Tenant::create(['id' => $request->tenant]);
@@ -32,6 +34,7 @@ class CompanyController extends Controller
                 'tenant_id' => $tenant->id
             ]);
             $company->save();
+            event(new StoreCreated($tenant));
             return Helper::jsonResponse(data: ['data' => ['tenant' => $tenant, 'company'=>$company]]);
         } catch (\Exception $e) {
             return response()->json([

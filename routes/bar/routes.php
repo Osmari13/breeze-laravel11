@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -25,7 +26,7 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
     Route::get('/', function () {
-        dd('asdsda');
+        dd(Employee::all());
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     })->middleware(['universal', InitializeTenancyByDomain::class]);
 });

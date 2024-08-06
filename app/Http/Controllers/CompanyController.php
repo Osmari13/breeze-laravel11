@@ -6,6 +6,7 @@ use App\Events\StoreCreated;
 use App\Helpers\Helper;
 use App\Models\Company;
 use App\Models\Tenant;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -34,8 +35,8 @@ class CompanyController extends Controller
                 'tenant_id' => $tenant->id
             ]);
             $company->save();
-            event(new StoreCreated($tenant));
-            return Helper::jsonResponse(data: ['data' => ['tenant' => $tenant, 'company'=>$company]]);
+            event(new Registered($tenant)); //event(new StoreCreated($tenant));
+            return Helper::jsonResponse(data: ['tenant' => $tenant, 'company'=>$company]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 500,

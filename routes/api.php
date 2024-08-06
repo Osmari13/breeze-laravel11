@@ -21,12 +21,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
   Route::get('/users', [RegisterController::class, 'index'])->name('user.index');
   Route::get('/profile', [AuthenticatedSessionController::class, 'profile'])->name('profile');
   Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
-  Route::apiResource('/inventario', InventarioController::class)->only('index', 'store', 'update', 'destroy');
+  //Route::apiResource('/inventario', InventarioController::class)->only('index', 'store', 'update', 'destroy');
   Route::group(['middleware' => ['role:sadmin']], function () {
-    Route::get('/inventario/{id}', [InventarioController::class, 'show']);
+    //Route::get('/inventario/{id}', [InventarioController::class, 'show']);
+    Route::apiResource('/permission', PermissionController::class);
+    Route::apiResource('/role', RoleController::class);
   });
-  Route::apiResource('/permission', PermissionController::class);
-  Route::apiResource('/role', RoleController::class);
 });
 
 

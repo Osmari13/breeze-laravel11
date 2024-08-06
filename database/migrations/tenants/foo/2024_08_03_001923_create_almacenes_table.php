@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::connection('foo_tenant')->schema()->create('almacenes', function (Blueprint $table) {
+        Schema::connection('sigeac_hangar74_tenant')->create('almacenes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('descripcion');

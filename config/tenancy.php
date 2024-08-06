@@ -52,8 +52,8 @@ return [
          * Tenant database names are created like this:
          * prefix + tenant_id + suffix.
          */
-        'prefix' => '',
-        'suffix' => '_tenant',
+        'prefix' => 'sigeac_',
+        'suffix' => '_tenant', //_tenant
 
         /**
          * TenantDatabaseManagers are classes that handle the creation & deletion of tenant databases.

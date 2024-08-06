@@ -20,13 +20,9 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
-Route::middleware([
-    'api',
-    InitializeTenancyByDomain::class,
-    PreventAccessFromCentralDomains::class,
-])->group(function () {
-    Route::get('/', function () {
+Route::middleware(['tenancyVerify', 'validatePrefix'])->prefix('api/sigeac/transmandu/')->group(function () {
+    Route::get('/company', function () {
         dd(Employee::all());
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
-    })->middleware(['universal', InitializeTenancyByDomain::class]);
+    });
 });

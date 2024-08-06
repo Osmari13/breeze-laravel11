@@ -12,4 +12,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 {
     use HasFactory, HasDatabase, HasDomains;
     //protected $fillable = ['id'];
+    public static function createWithoutDatabase(array $attributes = [])
+    {
+        return static::query()->create($attributes);
+    }
 }

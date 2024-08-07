@@ -17,9 +17,9 @@ class ValidatePrefixMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $prefix = $request->route()->getPrefix();
-        dd($prefix);
-        $exists = DB::select("SELECT name FROM dblaravel11.companies WHERE name = ?", [$prefix]);
-
+     
+        $exists = DB::select("SELECT name FROM dblaravel11.companies WHERE name = ?", [$prefix[1]]);
+        
         if (!$exists) {
             return abort(404, 'Company not found');
         }

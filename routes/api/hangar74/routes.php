@@ -42,9 +42,9 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 //     });
 // }); 
 
-Route::middleware(['tenancyVerify', 'validatePrefix'])->prefix('api/sigeac/hangar74/*')->group(function () {
+Route::middleware(['api','validatePrefix'])->prefix('hangar74')->group(function () {
     Route::get('/', function () {
-      //dd(Employee::all());
+        dd('hangar');
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     });
     

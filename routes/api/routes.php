@@ -10,10 +10,11 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
-foreach (config('tenancy.central_domains') as $domain) {
-  Route::domain($domain)->group(function () {
-    Route::get('/users', [RegisterController::class, 'index'])->name('user.index');
+
+// foreach (config('tenancy.central_domains') as $domain) {
+//   Route::domain($domain)->group(function () {
     Route::apiResource('/company', CompanyController::class);
+    Route::get('/users', [RegisterController::class, 'index'])->name('user.index');
    // Route::apiResource('/inventario', InventarioController::class)->only('index', 'store', 'update', 'destroy');
     Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
@@ -28,8 +29,8 @@ foreach (config('tenancy.central_domains') as $domain) {
       Route::apiResource('/permission', PermissionController::class);
       Route::apiResource('/role', RoleController::class);
       });
-  });
-}
+//   });
+// }
 
 
 

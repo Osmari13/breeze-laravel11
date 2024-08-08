@@ -42,12 +42,12 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 //     });
 // }); 
 
-Route::middleware(['api','validatePrefix'])->prefix('hangar74')->group(function () {
-    Route::get('/', function () {
+Route::middleware(['api'])->prefix('hangar74')->group(function () {
+    Route::get('/dashboard', function () {
         dd('hangar');
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     });
-    
 }); 
+
 
 

@@ -27,7 +27,6 @@ class CreatTenantDatabase
     {
         $tenant = $event->tenant;
         $db = "sigeac_{$tenant->id}_tenant";
-        // $old = Config::get('database.connections.tenant.database');
         // Config::set('database.connections.tenant.database', $db);
         // DB::statement("CREATE DATABASE `{$db}`");
         $dir = new DirectoryIterator(database_path('database/migrations/tenants'));
@@ -35,12 +34,12 @@ class CreatTenantDatabase
            if($file->isFile())
            {
                Artisan::call('migrate', [
-                   '--path' => $file->getPath(),
+                   '--database' => 'tenant',
+                   '--path' => 'database/migrations/tenants/' . $file->getFilename(),
                    '--force' => true
                ]);
 
            }
         }
-        // Config::set('database.connections.tenant.database', $old);
     }
 }

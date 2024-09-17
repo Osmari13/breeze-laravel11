@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inventario extends Model
+class Article extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'nombre',
+        'name',
         'descripcion',
-        'cantidad',
-        'precio',
+        'inventario_id',
+    
     ];
-    protected $table = 'inventarios';
+    protected $table = 'articles';
 }

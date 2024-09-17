@@ -21,7 +21,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
   Route::post('/registro', [RegisterController::class, 'store'])->name('user.register');
   Route::get('/profile', [AuthenticatedSessionController::class, 'profile'])->name('profile');
   Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
-  //Route::apiResource('/inventario', InventarioController::class)->only('index', 'store', 'update', 'destroy');
+  Route::apiResource('/inventario', InventarioController::class)->name('inventraio');
   Route::group(['middleware' => ['role:sadmin']], function () {
     //Route::get('/inventario/{id}', [InventarioController::class, 'show']);
     Route::apiResource('/permission', PermissionController::class);

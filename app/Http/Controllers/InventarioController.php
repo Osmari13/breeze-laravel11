@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Hangar74;
+namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
@@ -15,7 +15,7 @@ class InventarioController extends Controller
     // }
     public function index()
     {
-        $user = auth()->user();
+     
         // if ($user->hasPermissionTo('inventario.index'))
         // {
             $inventario = Inventario::all();
@@ -34,18 +34,18 @@ class InventarioController extends Controller
 
     public function store(Request $request)
     {
-        if (auth()->user()->hasPermissionTo('inventario.create'))
-        {
+        // if (auth()->user()->hasPermissionTo('inventario.create'))
+        // {
             return Helper::transactional(function () use ($request) {
             
                 $inventario = Inventario::create($request->all());
                 return Helper::jsonResponse(data: ['inventario' => $inventario]);
             });
-        }
-        else
-        {
-            return response()->json(['message' => 'Sin permisos'], 403);
-        }
+        // }
+        // else
+        // {
+        //     return response()->json(['message' => 'Sin permisos'], 403);
+        // }
     }
 
     /**
